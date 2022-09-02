@@ -12,14 +12,14 @@
  *   Thomas Lobig - initial API and implementation
  ********************************************************************************/
 
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 #include <adore/apps/prediction_provider.h>
 
 namespace adore
 {
     namespace if_ROS
     {
-        class PredictionProviderNode : public Baseapp
+        class PredictionProviderNode : public adore_if_ros_scheduling::Baseapp
         {
         public:
             adore::apps::PredictionProvider *provider_;

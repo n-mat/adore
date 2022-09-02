@@ -54,6 +54,7 @@ list(APPEND CMAKE_PREFIX_PATH "$ENV{CMAKE_PREFIX_PATH}")
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../adore_if_ros_msg/adore_if_ros_msg/build/install")
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../plotlablib/plotlablib/build/install")
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../libadore/libadore/build/install")
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../adore_if_ros_scheduling/build/install")
 
 add_library(qpoases::qpoases STATIC IMPORTED GLOBAL)
 set_property(TARGET qpoases::qpoases PROPERTY IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/../../libadore/libadore/build/install/lib/libqpOASES.a)
@@ -81,6 +82,7 @@ endif()
 #            "--suppressions-list=${CMAKE_SOURCE_DIR}/CppCheckSuppressions.txt"
 
 find_package(adore_if_ros_msg CONFIG REQUIRED)
+find_package(adore_if_ros_scheduling CONFIG REQUIRED)
 find_package(xodr CONFIG REQUIRED)
 find_package(csaps-cpp CONFIG REQUIRED)
 
@@ -259,6 +261,7 @@ target_include_directories(
     adore_vehiclemodel_node 
       PRIVATE include 
         ${catkin_INCLUDE_DIRS}
+        ${adore_if_ros_scheduling_INCLUDE_DIRS}
 )
 target_link_libraries(
     adore_vehiclemodel_node 
@@ -271,7 +274,7 @@ target_link_libraries(
 
 add_executable(adore_odometrymodel_node)
 target_sources(adore_odometrymodel_node PRIVATE src/adore_odometrymodel_node.cpp)
-target_include_directories( adore_odometrymodel_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories( adore_odometrymodel_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_odometrymodel_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -282,7 +285,7 @@ target_link_libraries(adore_odometrymodel_node
 
 add_executable(adore_localizationmodel_node)
 target_sources(adore_localizationmodel_node PRIVATE src/adore_localizationmodel_node.cpp)
-target_include_directories( adore_localizationmodel_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories( adore_localizationmodel_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_localizationmodel_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -295,7 +298,7 @@ target_link_libraries(adore_localizationmodel_node
 add_executable(adore_objectdetectionmodel_node)
 target_sources(adore_objectdetectionmodel_node PRIVATE src/adore_objectdetectionmodel_node.cpp)
 target_include_directories(
-    adore_objectdetectionmodel_node PRIVATE include ${catkin_INCLUDE_DIRS})
+    adore_objectdetectionmodel_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_objectdetectionmodel_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -313,19 +316,9 @@ target_link_libraries(adore_timer_node
                           libadore::sim
 )
 
-add_executable(adore_scheduler_node )
-target_sources(adore_scheduler_node PRIVATE src/adore_scheduler_node.cpp)
-target_include_directories(adore_scheduler_node PRIVATE include ${catkin_INCLUDE_DIRS})
-target_link_libraries(adore_scheduler_node 
-                        PRIVATE 
-                          ${catkin_LIBRARIES} 
-                          libadore::sim 
-                          dlib::dlib
-)
-
 add_executable(adore_feedbackcontroller_node )
 target_sources(adore_feedbackcontroller_node PRIVATE src/adore_feedbackcontroller_node.cpp)
-target_include_directories(adore_feedbackcontroller_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(adore_feedbackcontroller_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_feedbackcontroller_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -337,7 +330,7 @@ target_link_libraries(adore_feedbackcontroller_node
 
 add_executable(adore_mapprovider_node)
 target_sources(adore_mapprovider_node PRIVATE src/adore_mapprovider_node.cpp)
-target_include_directories(adore_mapprovider_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(adore_mapprovider_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_mapprovider_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -352,7 +345,7 @@ target_link_libraries(adore_mapprovider_node
 
 add_executable(adore_speedlimitprovider_node)
 target_sources(adore_speedlimitprovider_node PRIVATE src/adore_speedlimitprovider_node.cpp)
-target_include_directories(adore_speedlimitprovider_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(adore_speedlimitprovider_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_speedlimitprovider_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -388,6 +381,7 @@ target_include_directories(
       PRIVATE 
         include 
         ${catkin_INCLUDE_DIRS}
+        ${adore_if_ros_scheduling_INCLUDE_DIRS}
 )
 target_link_libraries(adore_indicatorhintprovider_node 
                         PRIVATE 
@@ -417,6 +411,7 @@ target_include_directories(
         include
         "$<TARGET_PROPERTY:plotlablib::plotlablib,INTERFACE_INCLUDE_DIRECTORIES>"
         ${catkin_INCLUDE_DIRS}
+        ${adore_if_ros_scheduling_INCLUDE_DIRS}
 )
 target_link_libraries(
     plot_area_of_effect 
@@ -438,7 +433,7 @@ target_link_libraries(plot_trajectories_node
 
 add_executable(plot_planning_details_node)
 target_sources(plot_planning_details_node PRIVATE src/plot_planning_details_node.cpp)
-target_include_directories(plot_planning_details_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_planning_details_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_planning_details_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -483,7 +478,7 @@ target_link_libraries(test_mrm_planner_node
 
 add_executable(test_straight_line_prediction_node)
 target_sources(test_straight_line_prediction_node PRIVATE src/test_straight_line_prediction_node.cpp)
-target_include_directories( test_straight_line_prediction_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories( test_straight_line_prediction_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(test_straight_line_prediction_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -495,7 +490,7 @@ target_link_libraries(test_straight_line_prediction_node
 
 add_executable(adore_gap_provider)
 target_sources(adore_gap_provider PRIVATE src/adore_gap_provider.cpp)
-target_include_directories( adore_gap_provider PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories( adore_gap_provider PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_gap_provider 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -508,7 +503,7 @@ target_link_libraries(adore_gap_provider
 
 add_executable(adore_prediction_provider)
 target_sources(adore_prediction_provider PRIVATE src/adore_prediction_provider.cpp)
-target_include_directories( adore_prediction_provider PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories( adore_prediction_provider PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_prediction_provider 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -520,7 +515,7 @@ target_link_libraries(adore_prediction_provider
 
 add_executable(adore_prediction_filter)
 target_sources(adore_prediction_filter PRIVATE src/adore_prediction_filter.cpp)
-target_include_directories( adore_prediction_filter PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories( adore_prediction_filter PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_prediction_filter 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -533,7 +528,7 @@ target_link_libraries(adore_prediction_filter
 
 add_executable(adore_lvprovider_node)
 target_sources(adore_lvprovider_node PRIVATE src/adore_lvprovider_node.cpp)
-target_include_directories( adore_lvprovider_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories( adore_lvprovider_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_lvprovider_node 
                         PRIVATE 
                           ${catkin_LIBRARIES}
@@ -545,7 +540,7 @@ target_link_libraries(adore_lvprovider_node
 
 add_executable(adore_crosstraffic_provider)
 target_sources(adore_crosstraffic_provider PRIVATE src/adore_crosstraffic_provider.cpp)
-target_include_directories( adore_crosstraffic_provider PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories( adore_crosstraffic_provider PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_crosstraffic_provider 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -557,7 +552,7 @@ target_link_libraries(adore_crosstraffic_provider
 
 add_executable(adore_checkpoint_controller_node)
 target_sources(adore_checkpoint_controller_node PRIVATE src/adore_checkpoint_controller_node.cpp)
-target_include_directories( adore_checkpoint_controller_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories( adore_checkpoint_controller_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_checkpoint_controller_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -572,7 +567,7 @@ target_link_libraries(adore_checkpoint_controller_node
 
 add_executable(adore_mission_controller_node)
 target_sources(adore_mission_controller_node PRIVATE src/adore_mission_controller_node.cpp)
-target_include_directories( adore_mission_controller_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories( adore_mission_controller_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_mission_controller_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -614,7 +609,7 @@ target_link_libraries(test_control_error_node
 
 add_executable(plot_satimages_node)
 target_sources(plot_satimages_node PRIVATE src/plot_satimages_node.cpp)
-target_include_directories(plot_satimages_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_satimages_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_satimages_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -626,7 +621,7 @@ target_link_libraries(plot_satimages_node
 
 add_executable(plot_ego_node)
 target_sources(plot_ego_node PRIVATE src/plot_ego_node.cpp)
-target_include_directories(plot_ego_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_ego_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_ego_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -638,7 +633,7 @@ target_link_libraries(plot_ego_node
 
 add_executable(plot_gaps_node)
 target_sources(plot_gaps_node PRIVATE src/plot_gaps.cpp)
-target_include_directories(plot_gaps_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_gaps_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_gaps_node 
                         PRIVATE 
                         ${catkin_LIBRARIES} 
@@ -650,7 +645,7 @@ target_link_libraries(plot_gaps_node
 
 add_executable(plot_lanes_node)
 target_sources(plot_lanes_node PRIVATE src/plot_lanes_node.cpp)
-target_include_directories(plot_lanes_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_lanes_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_lanes_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -686,7 +681,7 @@ target_link_libraries(plot_vector_node
 
 add_executable(plot_traffic_node)
 target_sources(plot_traffic_node PRIVATE src/plot_traffic_node.cpp)
-target_include_directories(plot_traffic_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_traffic_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_traffic_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -699,7 +694,7 @@ target_link_libraries(plot_traffic_node
 
 add_executable(plot_trafficlights_node)
 target_sources(plot_trafficlights_node PRIVATE src/plot_trafficlights_node.cpp)
-target_include_directories(plot_trafficlights_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_trafficlights_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_trafficlights_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -711,7 +706,7 @@ target_link_libraries(plot_trafficlights_node
 
 add_executable(plot_predictions_node)
 target_sources(plot_predictions_node PRIVATE src/plot_predictions_node.cpp)
-target_include_directories(plot_predictions_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_predictions_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_predictions_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -723,7 +718,7 @@ target_link_libraries(plot_predictions_node
 
 add_executable(plot_predictions_minimal_node)
 target_sources(plot_predictions_minimal_node PRIVATE src/plot_predictions_minimal_node.cpp)
-target_include_directories(plot_predictions_minimal_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_predictions_minimal_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_predictions_minimal_node 
                         PRIVATE
                           ${catkin_LIBRARIES}
@@ -735,7 +730,7 @@ target_link_libraries(plot_predictions_minimal_node
 
 add_executable(plot_conflicts_node)
 target_sources(plot_conflicts_node PRIVATE src/plot_conflicts_node.cpp)
-target_include_directories(plot_conflicts_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_conflicts_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_conflicts_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -747,7 +742,7 @@ target_link_libraries(plot_conflicts_node
 
 add_executable(plot_roadannotations_node)
 target_sources(plot_roadannotations_node PRIVATE src/plot_roadannotations_node.cpp)
-target_include_directories(plot_roadannotations_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_roadannotations_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_roadannotations_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -760,7 +755,7 @@ target_link_libraries(plot_roadannotations_node
 
 add_executable(plot_plan_swath_node)
 target_sources(plot_plan_swath_node PRIVATE src/plot_plan_swath_node.cpp)
-target_include_directories(plot_plan_swath_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_plan_swath_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_plan_swath_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -772,7 +767,7 @@ target_link_libraries(plot_plan_swath_node
 
 add_executable(plot_views_node)
 target_sources(plot_views_node PRIVATE src/plot_views_node.cpp)
-target_include_directories(plot_views_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(plot_views_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(plot_views_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -785,7 +780,7 @@ target_link_libraries(plot_views_node
 
 add_executable(adore_pvprovider_node)
 target_sources(adore_pvprovider_node PRIVATE src/adore_pvprovider_node.cpp)
-target_include_directories( adore_pvprovider_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories( adore_pvprovider_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_pvprovider_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -804,7 +799,7 @@ target_link_libraries(adore_pvprovider_node
 # )
 
 add_executable(test_lc_trajectory_planner_node src/test_lc_trajectory_planner_node.cpp)
-target_include_directories(test_lc_trajectory_planner_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(test_lc_trajectory_planner_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(test_lc_trajectory_planner_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -846,7 +841,7 @@ target_link_libraries(test_checkpoint_clearance
 
 
 add_executable(adore_lfbehavior_node src/adore_lfbehavior_node.cpp)
-target_include_directories(adore_lfbehavior_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(adore_lfbehavior_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_lfbehavior_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -858,7 +853,7 @@ target_link_libraries(adore_lfbehavior_node
 )
 
 add_executable(adore_trajectory_planner_lf_node src/adore_trajectory_planner_lf_node.cpp)
-target_include_directories(adore_trajectory_planner_lf_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(adore_trajectory_planner_lf_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_trajectory_planner_lf_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -877,6 +872,7 @@ target_include_directories(
         include 
         ${catkin_INCLUDE_DIRS}
         ${adore_if_ros_msg_INCLUDE_DIRS}
+        ${adore_if_ros_scheduling_INCLUDE_DIRS}
 )
 target_link_libraries(adore_trajectory_planner_lm_node 
                         PRIVATE 
@@ -889,7 +885,7 @@ target_link_libraries(adore_trajectory_planner_lm_node
 )
 
 add_executable(adore_trajectory_planner_lc_node src/adore_trajectory_planner_lc_node.cpp)
-target_include_directories(adore_trajectory_planner_lc_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(adore_trajectory_planner_lc_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_trajectory_planner_lc_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -900,7 +896,7 @@ target_link_libraries(adore_trajectory_planner_lc_node
 )
 
 add_executable(adore_trajectory_planner_alc_node src/adore_trajectory_planner_alc_node.cpp)
-target_include_directories(adore_trajectory_planner_alc_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(adore_trajectory_planner_alc_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_trajectory_planner_alc_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -912,7 +908,7 @@ target_link_libraries(adore_trajectory_planner_alc_node
 )
 
 add_executable(adore_tactical_planner_node src/adore_tactical_planner_node.cpp)
-target_include_directories(adore_tactical_planner_node PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(adore_tactical_planner_node PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(adore_tactical_planner_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -925,7 +921,7 @@ target_link_libraries(adore_tactical_planner_node
 # target_compile_options(adore_tactical_planner_node BEFORE PRIVATE -g1) 
 
 add_executable(area_of_effect_provider src/area_of_effect_provider.cpp)
-target_include_directories(area_of_effect_provider PRIVATE include ${catkin_INCLUDE_DIRS})
+target_include_directories(area_of_effect_provider PRIVATE include ${catkin_INCLUDE_DIRS} ${adore_if_ros_scheduling_INCLUDE_DIRS})
 target_link_libraries(area_of_effect_provider 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
@@ -1055,9 +1051,7 @@ install(
     adore_gap_provider
     adore_prediction_provider
     adore_prediction_filter
-    adore_scheduler_node
     adore_monitor0_node
-#    adore_coincide_planner_node
     adore_lvprovider_node
     adore_checkpoint_controller_node
     adore_mission_controller_node

@@ -19,9 +19,6 @@ namespace adore
 {
     namespace if_ROS
     {
-        /**
-         * Convert between adore::sim::SchedulerNotification and ROS adore_if_ros_msg::SchedulerNotification
-         */
         struct SimActionConverter
         {
             void operator()(adore_if_ros_msg::ActionConstPtr msg, adore::sim::Action& a)

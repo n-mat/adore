@@ -15,14 +15,14 @@
 #include <adore/apps/plot_satimages.h>
 #include <adore/apps/if_plotlab/geoTiles_config.h>
 #include <plotlablib/figurestubfactory.h>
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 #include <string>
 
 namespace adore
 {
   namespace if_ROS
   {  
-    class PlotSatImagesNode : public Baseapp
+    class PlotSatImagesNode : public adore_if_ros_scheduling::Baseapp
     {
       public:
       adore::apps::PlotSatImages* app_;

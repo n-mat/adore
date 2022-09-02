@@ -12,7 +12,7 @@
  *   Daniel Heß - a ros node, which executes checkpoint_controller
  ********************************************************************************/
 
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 #include <adore/apps/checkpoint_controller.h>
 
 
@@ -20,7 +20,7 @@ namespace adore
 {
   namespace if_ROS
   {  
-    class CheckpointControllerNode : public Baseapp
+    class CheckpointControllerNode : public adore_if_ros_scheduling::Baseapp
     {
     private:
       adore::apps::CheckpointController* cpc_;

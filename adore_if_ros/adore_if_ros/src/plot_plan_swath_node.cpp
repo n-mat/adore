@@ -15,14 +15,14 @@
 #include <adore_if_ros/funfactory.h>
 #include <adore/apps/plot_plan_swath.h>
 #include <plotlablib/figurestubfactory.h>
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 #include <string>
 
 namespace adore
 {
   namespace if_ROS
   {  
-    class PlotPlanSwathNode : public Baseapp
+    class PlotPlanSwathNode : public adore_if_ros_scheduling::Baseapp
     {
       public:
       adore::apps::PlotPlanSwath* pb_;

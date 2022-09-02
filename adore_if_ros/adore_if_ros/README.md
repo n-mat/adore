@@ -42,7 +42,6 @@ The most important processes provided by package:
 | environment_model | adore_crosstraffic_provider | Monitors prediction of other traffic participants and tests for intersection of cross-traffic with lane following view. In case of crosstraffic intersecting the lane following view, the nearest intersection with a feasible stopping position is published on the topic ENV/ConflictSet. The node may be extended in the future to publish also all intersection points after the first potential stopping position. |
 | simulation | adore_ci_terminator_node | terminates an automatic simulation |
 | simulation | adore_objectdetectionmodel_node| simulation module, which transfers information about objects near vehicle from simulation topic to ego vehicle topic|
-| simulation | adore_scheduler_node| controls simulation time and advances simulation time according to slowest process|
 | simulation | adore_timer_node | constrols simulation time and advances simulation time according to system time (when not paused) |
 | simulation | adore_vehiclemodel_node | controls vehicle state in simulation according to scenario initialization and control inputs|
 | simulation | adore_odometrymodel_node | simulates typical errors for odometry based state estimates |

@@ -12,7 +12,7 @@
  *   Daniel Heß - initial API and implementation
  ********************************************************************************/
 
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 #include <adore/apps/trajectory_planner_lc.h>
 #include <ros/console.h>
 
@@ -20,7 +20,7 @@ namespace adore
 {
   namespace if_ROS
   {  
-    class TrajectoryPlannerLCNode : public Baseapp
+    class TrajectoryPlannerLCNode : public adore_if_ros_scheduling::Baseapp
     {
       public:
       adore::apps::TrajectoryPlannerLC* planner_;

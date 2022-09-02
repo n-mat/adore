@@ -16,18 +16,17 @@
 #include <adore_if_ros/simfactory.h>
 #include <adore_if_ros/paramsfactory.h>
 #include <adore/apps/localizationmodel.h>
-#include <adore/sim/schedulernotificationmanager.h>
 #include <iostream>
 #include <thread>
 #include <cstdlib>
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 
 
 namespace adore
 {
   namespace if_ROS
   {  
-    class LocalizationModelNode : public Baseapp
+    class LocalizationModelNode : public adore_if_ros_scheduling::Baseapp
     {
       public:
       adore::apps::LocalizationModel* lm_;

@@ -12,7 +12,7 @@
  *   Matthias Nichting
  ********************************************************************************/
 
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 #include <adore/apps/plot_views.h>
 #include <adore/apps/if_plotlab/viewplotter_config.h>
 #include <plotlablib/figurestubfactory.h>
@@ -21,7 +21,7 @@ namespace adore
 {
     namespace if_ROS
     {
-        class PlotViewsNode : public Baseapp
+        class PlotViewsNode : public adore_if_ros_scheduling::Baseapp
         {
           public:
             adore::apps::PlotViews* vp_;

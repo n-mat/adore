@@ -12,7 +12,7 @@
  *   Daniel Heß - initial API and implementation
  ********************************************************************************/
 
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 #include <adore/apps/tactical_planner.h>
 #include <iostream>
 
@@ -20,7 +20,7 @@ namespace adore
 {
   namespace if_ROS
   {  
-    class TacticalPlannerNode : public Baseapp
+    class TacticalPlannerNode : public adore_if_ros_scheduling::Baseapp
     {
       public:
       adore::apps::TacticalPlanner* tacticalPlanner_;

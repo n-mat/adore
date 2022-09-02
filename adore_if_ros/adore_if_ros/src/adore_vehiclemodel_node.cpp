@@ -17,14 +17,14 @@
 #include <iostream>
 #include <thread>
 #include <cstdlib>
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 
 
 namespace adore
 {
   namespace if_ROS
   {  
-    class VehicleModelNode : public Baseapp
+    class VehicleModelNode : public adore_if_ros_scheduling::Baseapp
     {
       public:
       adore::apps::VehicleModel* vm_;

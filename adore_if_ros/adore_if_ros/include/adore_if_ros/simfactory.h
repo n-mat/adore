@@ -37,7 +37,6 @@
 #include "conversions/stdconverter.h"
 #include "conversions/trafficparticipantconverter.h"
 #include "conversions/trafficsimulationfeed.h"
-#include "conversions/simschedulernotificationconverter.h"
 #include "conversions/simactionconverter.h"
 #include "conversions/clocktimeconverter.h"
 #include "conversions/simstdstate.h"
@@ -189,21 +188,7 @@ namespace adore
                     //                 TPSimulationConverter>(n_,"/SIM/traffic",1000);
                     return new TrafficSimulationFeed(n_,"/SIM/traffic",1000,"/SIM/traffic/agg",20);
                 }
-
-                virtual TSchedulerNotificationFeed* getSchedulerNotificationFeed()
-                {
-                    return new FeedWithCallback<adore::sim::SchedulerNotification,
-                                    adore_if_ros_msg::SchedulerNotification,
-                                    SimSchedulerNotificationConverter>(n_,"/SIM/scheduling",1000);
-                }
-                virtual TSchedulerNotificationWriter* getSchedulerNotificationWriter()
-                {
-                    return new Writer<adore::sim::SchedulerNotification,
-                                    adore_if_ros_msg::SchedulerNotification,
-                                    adore::if_ROS::SimSchedulerNotificationConverter> (n_,"/SIM/scheduling",1);
-
-                }
-                 virtual TActionFeed* getActionFeed()
+                virtual TActionFeed* getActionFeed()
                 {
                     return new FeedWithCallback<adore::sim::Action,
                                     adore_if_ros_msg::Action,

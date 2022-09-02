@@ -20,14 +20,14 @@
 #include <plotlablib/figurestubfactory.h>
 #include <adore/params/ap_vehicle_dummy.h>
 // #include <adore/params/ap_map_provider_dummy.h>
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 #include <string>
 
 namespace adore
 {
   namespace if_ROS
   {  
-    class PlotPredictionsMinimalNode : public Baseapp
+    class PlotPredictionsMinimalNode : public adore_if_ros_scheduling::Baseapp
     {
       public:
       adore::apps::PlotPredictionsMinimal* pb_;

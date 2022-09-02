@@ -13,14 +13,14 @@
 ********************************************************************************/
 
 #include <adore/apps/plot_gaps.h>
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 #include <string>
 
 namespace adore
 {
   namespace if_ROS
   {  
-    class ThisNode : public Baseapp
+    class ThisNode : public adore_if_ros_scheduling::Baseapp
     {
       public:
       adore::apps::PlotGaps* app_;

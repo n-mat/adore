@@ -12,7 +12,9 @@
  *   Jan Lauermann - a ros node, which executes mission_controller
  ********************************************************************************/
 
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
+#include <adore_if_ros/funfactory.h>
+#include <adore_if_ros/paramsfactory.h>
 #include <adore/apps/mission_controller.h>
 
 
@@ -20,16 +22,20 @@ namespace adore
 {
   namespace if_ROS
   {  
-    class MissionControllerNode : public Baseapp
+    class MissionControllerNode : public adore_if_ros_scheduling::Baseapp
     {
     private:
       adore::apps::MissionController* mc_;
+      PARAMS_Factory *params_factory_;
+      FUN_Factory * fun_factory_;
     public:
       void init(int argc, char **argv, double rate, std::string nodename)
       {
         Baseapp::init(argc, argv, rate, nodename);
         Baseapp::initSim();
-        mc_ = new adore::apps::MissionController(this->getFactory<FUN_Factory>(),this->getParamsFactory(""));
+        params_factory_ = new PARAMS_Factory(*getRosNodeHandle(),"");
+        fun_factory_ = new FUN_Factory(getRosNodeHandle());
+        mc_ = new adore::apps::MissionController(fun_factory_, params_factory_);
 
         // timer callbacks
         std::function<void()> run_fcn(std::bind(&adore::apps::MissionController::run,mc_));

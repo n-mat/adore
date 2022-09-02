@@ -13,13 +13,13 @@
  ********************************************************************************/
 
 #include <adore/apps/speedlimit_provider.h>
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 
 namespace adore
 {
 namespace if_ROS
 {
-class SpeedLimitProviderNode : public Baseapp
+class SpeedLimitProviderNode : public adore_if_ros_scheduling::Baseapp
 {
 public:
     adore::apps::SpeedLimitProvider *app_;

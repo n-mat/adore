@@ -15,14 +15,14 @@
 
 #include <plotlablib/figurestubfactory.h>
 #include <adore/apps/plot_planning_details.h>
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 #include <ros/ros.h>
 
 namespace adore
 {
     namespace if_ROS
     {
-        class PlotPlanningDetailsNode : public Baseapp
+        class PlotPlanningDetailsNode : public adore_if_ros_scheduling::Baseapp
         {
           public:
             PlotPlanningDetailsNode()

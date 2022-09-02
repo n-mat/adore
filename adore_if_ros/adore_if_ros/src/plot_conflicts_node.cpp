@@ -18,14 +18,14 @@
 #include <adore/apps/plot_conflict_set.h>
 #include <adore/apps/if_plotlab/prediction_config.h>
 #include <plotlablib/figurestubfactory.h>
-#include <adore_if_ros/baseapp.h>
+#include <adore_if_ros_scheduling/baseapp.h>
 #include <string>
 
 namespace adore
 {
   namespace if_ROS
   {  
-    class PlotConflictsNode : public Baseapp
+    class PlotConflictsNode : public adore_if_ros_scheduling::Baseapp
     {
       public:
       adore::apps::PlotConflicts* pb_;
