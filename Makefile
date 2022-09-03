@@ -25,6 +25,7 @@ all: \
      root_check \
      start_apt_cacher_ng \
      build_adore_if_ros_msg\
+     build_adore_if_ros_scheduling\
      build_adore_if_ros\
      build_adore_if_v2x \
      build_adore_v2x_sim \
@@ -45,6 +46,7 @@ clean:
 	cd libadore && make clean
 	cd adore_if_ros && make clean
 	cd adore_if_v2x && make clean
+	cd adore_if_ros/adore_if_ros_scheduling && make clean
 	cd adore_if_ros/make_gadgets/docker && make delete_all_none_tags
 
 .PHONY: start_apt_cacher_ng 
@@ -97,6 +99,11 @@ build_libadore: start_apt_cacher_ng ## Build libadore
 .PHONY: build_sumo_if_ros 
 build_sumo_if_ros: ## Build sumo_if_ros
 	cd sumo_if_ros && \
+    make
+    
+.PHONY: build_adore_if_ros_scheduling 
+build_adore_if_ros_scheduling: ## Build adore_if_ros_scheduling
+	cd adore_if_ros/adore_if_ros_scheduling && \
     make
 
 .PHONY: test 

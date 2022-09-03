@@ -26,7 +26,6 @@
 #include <adore/sim/resetvehiclepose.h>
 #include <adore/sim/resetvehicletwist.h>
 #include <adore/env/traffic/participant.h>
-#include <adore/sim/schedulernotification.h>
 #include <adore/sim/action.h>
 #include <adore/sim/stdstate.h>
 
@@ -61,8 +60,6 @@ namespace adore
 			typedef adore::mad::AWriter<adore::env::traffic::TParticipantSet> TParticipantSetWriter;
 			typedef adore::mad::AWriter<adore::env::traffic::Participant> TParticipantWriter;
 			typedef adore::mad::AFeed<adore::env::traffic::Participant> TParticipantFeed;
-			typedef adore::mad::AFeedWithCallback<adore::sim::SchedulerNotification> TSchedulerNotificationFeed;
-			typedef adore::mad::AWriter<adore::sim::SchedulerNotification> TSchedulerNotificationWriter;
 			typedef adore::mad::AWriter<std::pair<uint32_t,uint32_t>> TClockTimeWriter;
 			typedef adore::mad::AWriter<adore::sim::StdState> TStdStateWriter;
 			typedef adore::mad::AReader<adore::sim::StdState> TStdStateReader;
@@ -112,10 +109,6 @@ namespace adore
 			virtual TParticipantWriter* getParticipantWriter()=0;
 			///get state updates from all vehicles 
 			virtual TParticipantFeed* getParticipantFeed()=0;
-			///send scheduler notification message
-			virtual TSchedulerNotificationWriter* getSchedulerNotificationWriter()=0;
-			///get notifications for scheduler
-			virtual TSchedulerNotificationFeed* getSchedulerNotificationFeed()=0;
 			///write clock time
 			virtual TClockTimeWriter* getClockTimeWriter()=0;
 			///wirte standard environment representation

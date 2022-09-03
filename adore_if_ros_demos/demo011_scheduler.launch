@@ -21,7 +21,7 @@
 <param name="/use_scheduler" value="true"/>
 <param name="/autostart_scheduling" value="true" type="bool"/>
 <param name="/PARAMS/SIM/timeout" value="130.0" type="double"/>
-<node name="scheduler" pkg="adore_if_ros" type="adore_scheduler_node" output="screen" launch-prefix="xterm -e" required="true">
+<node name="scheduler" pkg="adore_if_ros_scheduling" type="adore_scheduler_node" output="screen" launch-prefix="xterm -e" required="true">
 </node>
 <group if="$(eval arg('headless')==true)">
     <param name="/number_of_nodes" value="8" type="int"/>
