@@ -18,13 +18,15 @@
 #include <thread>
 #include <cstdlib>
 #include <adore_if_ros_scheduling/baseapp.h>
+#include <adore_if_ros/factorycollection.h>
+
 
 
 namespace adore
 {
   namespace if_ROS
   {  
-    class VehicleModelNode : public adore_if_ros_scheduling::Baseapp
+    class VehicleModelNode : public FactoryCollection, public adore_if_ros_scheduling::Baseapp
     {
       public:
       adore::apps::VehicleModel* vm_;
@@ -33,6 +35,7 @@ namespace adore
       {
         Baseapp::init(argc, argv, rate, nodename);
         Baseapp::initSim();
+        FactoryCollection::init(getRosNodeHandle());
         int simulationID = 0;
         int v2xStationID = 0;
         getParam("simulationID",simulationID);
@@ -40,6 +43,12 @@ namespace adore
         bool external_ego_measurement_models = false;
         getParam("PARAMS/external_ego_measurement_models",external_ego_measurement_models,false);
         std::cout<<"external_ego_measurement_models:="<<(external_ego_measurement_models?"true":"false")<<std::endl;
+        //FUN_Factory fun_factory(getRosNodeHandle());
+        //SIM_Factory sim_factory(getRosNodeHandle());
+        //PARAMS_Factory params_factory(getRosNodeHandle(),"");
+        //adore::fun::FunFactoryInstance::init(&fun_factory);
+        //adore::sim::SimFactoryInstance::init(&sim_factory);
+        //adore::params::ParamsFactoryInstance::init(&params_factory);
         vm_ = new adore::apps::VehicleModel(external_ego_measurement_models,simulationID,v2xStationID);
         // timer callbacks
         std::function<void()> run_fcn(std::bind(&adore::apps::VehicleModel::run,vm_));

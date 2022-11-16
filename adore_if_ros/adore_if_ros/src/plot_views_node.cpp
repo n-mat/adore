@@ -13,6 +13,7 @@
  ********************************************************************************/
 
 #include <adore_if_ros_scheduling/baseapp.h>
+#include <adore_if_ros/factorycollection.h>
 #include <adore/apps/plot_views.h>
 #include <adore/apps/if_plotlab/viewplotter_config.h>
 #include <plotlablib/figurestubfactory.h>
@@ -21,7 +22,7 @@ namespace adore
 {
     namespace if_ROS
     {
-        class PlotViewsNode : public adore_if_ros_scheduling::Baseapp
+        class PlotViewsNode : public FactoryCollection, public adore_if_ros_scheduling::Baseapp
         {
           public:
             adore::apps::PlotViews* vp_;
@@ -32,6 +33,7 @@ namespace adore
             {
                 Baseapp::init(argc, argv, rate, nodename);
                 Baseapp::initSim();
+                FactoryCollection::init(getRosNodeHandle());
                 DLR_TS::PlotLab::FigureStubFactory fig_factory;
                 auto figure = fig_factory.createFigureStub(2);
                 figure->show();

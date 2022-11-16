@@ -34,3 +34,7 @@ RUN dpkg -i *.deb
 COPY --from=adore_if_ros_msg:latest /tmp/adore_if_ros_msg /tmp/adore_if_ros_msg
 WORKDIR /tmp/adore_if_ros_msg/build
 RUN cmake --install . && ldconfig
+
+#COPY --from=lib_adore_if_ros_scheduling:latest /tmp/lib_adore_if_ros_scheduling /tmp/lib_adore_if_ros_scheduling
+#WORKDIR /tmp/lib_adore_if_ros_scheduling/build
+#RUN cmake --install . && ldconfig

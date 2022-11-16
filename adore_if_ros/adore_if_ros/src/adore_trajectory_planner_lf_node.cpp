@@ -14,13 +14,14 @@
 
 #include <adore_if_ros_scheduling/baseapp.h>
 #include <adore/apps/trajectory_planner_lf.h>
+#include <adore_if_ros/factorycollection.h>
 
 
 namespace adore
 {
   namespace if_ROS
   {  
-    class TrajectoryPlannerLFNode : public adore_if_ros_scheduling::Baseapp
+    class TrajectoryPlannerLFNode : public FactoryCollection, public adore_if_ros_scheduling::Baseapp
     {
       public:
       adore::apps::TrajectoryPlannerLF* planner_;
@@ -28,6 +29,7 @@ namespace adore
       {
         Baseapp::init(argc, argv, rate, nodename);
         Baseapp::initSim();
+        FactoryCollection::init(getRosNodeHandle());
         planner_ = new adore::apps::TrajectoryPlannerLF(id,name,lateral_i_grid);
         planner_->setSpeedScale(speed_scale);
         planner_->setStopPoint(stop_point_id);

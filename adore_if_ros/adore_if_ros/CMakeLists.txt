@@ -54,7 +54,6 @@ list(APPEND CMAKE_PREFIX_PATH "$ENV{CMAKE_PREFIX_PATH}")
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../adore_if_ros_msg/adore_if_ros_msg/build/install")
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../plotlablib/plotlablib/build/install")
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../libadore/libadore/build/install")
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../adore_if_ros_scheduling/build/install")
 
 add_library(qpoases::qpoases STATIC IMPORTED GLOBAL)
 set_property(TARGET qpoases::qpoases PROPERTY IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/../../libadore/libadore/build/install/lib/libqpOASES.a)
@@ -83,6 +82,8 @@ endif()
 
 find_package(adore_if_ros_msg CONFIG REQUIRED)
 find_package(adore_if_ros_scheduling CONFIG REQUIRED)
+find_package(adore_if_ros_scheduling_msg CONFIG REQUIRED)
+find_package(lib_adore_scheduling CONFIG REQUIRED)
 find_package(xodr CONFIG REQUIRED)
 find_package(csaps-cpp CONFIG REQUIRED)
 
@@ -270,6 +271,7 @@ target_link_libraries(
         libadore::sim 
         libadore::apps 
         libadore::params
+        adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_odometrymodel_node)
@@ -281,6 +283,7 @@ target_link_libraries(adore_odometrymodel_node
                           libadore::sim 
                           libadore::apps 
                           libadore::params
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_localizationmodel_node)
@@ -293,6 +296,7 @@ target_link_libraries(adore_localizationmodel_node
                           libadore::apps 
                           libadore::params 
                           dlib::dlib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_objectdetectionmodel_node)
@@ -305,6 +309,7 @@ target_link_libraries(adore_objectdetectionmodel_node
                           libadore::sim 
                           libadore::apps 
                           libadore::params
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_timer_node )
@@ -322,7 +327,8 @@ target_include_directories(adore_feedbackcontroller_node PRIVATE include ${catki
 target_link_libraries(adore_feedbackcontroller_node 
                         PRIVATE 
                           ${catkin_LIBRARIES} 
-                          libadore::apps 
+                          libadore::apps
+                          adore_if_ros_scheduling::adore_if_ros_scheduling 
                           libadore::params 
                           libadore::fun 
                           libadore::sim 
@@ -341,6 +347,7 @@ target_link_libraries(adore_mapprovider_node
                           libadore::sim
                           libadore::if_r2s 
                           plotlablib::plotlablib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_speedlimitprovider_node)
@@ -354,6 +361,7 @@ target_link_libraries(adore_speedlimitprovider_node
                           libadore::params 
                           libadore::sim
                           plotlablib::plotlablib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_navigation_node)
@@ -389,6 +397,7 @@ target_link_libraries(adore_indicatorhintprovider_node
                           plotlablib::plotlablib
                           libadore::apps
                           libadore::env
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
                           libadore::params
                           libadore::sim
 )
@@ -441,6 +450,7 @@ target_link_libraries(plot_planning_details_node
                           libadore::apps 
                           libadore::mad 
                           libadore::fun 
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(plot_graph_node)
@@ -461,6 +471,7 @@ target_link_libraries(test_trajectory_planner_node
                           plotlablib::plotlablib 
                           libadore::apps 
                           libadore::fun 
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
                           libadore::sim 
 )
 
@@ -472,6 +483,7 @@ target_link_libraries(test_mrm_planner_node
                           libadore::apps 
                           libadore::fun 
                           libadore::params 
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
                           libadore::sim
                           plotlablib::plotlablib
 )
@@ -486,6 +498,7 @@ target_link_libraries(test_straight_line_prediction_node
                           libadore::sim 
                           libadore::apps 
                           libadore::params
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_gap_provider)
@@ -499,7 +512,7 @@ target_link_libraries(adore_gap_provider
                           libadore::apps 
                           libadore::params 
                           dlib::dlib
-)
+                          adore_if_ros_scheduling::adore_if_ros_scheduling)
 
 add_executable(adore_prediction_provider)
 target_sources(adore_prediction_provider PRIVATE src/adore_prediction_provider.cpp)
@@ -511,6 +524,7 @@ target_link_libraries(adore_prediction_provider
                           libadore::sim 
                           libadore::apps 
                           libadore::params
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_prediction_filter)
@@ -524,6 +538,7 @@ target_link_libraries(adore_prediction_filter
                           libadore::apps 
                           libadore::params 
                           libadore::sim
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_lvprovider_node)
@@ -536,6 +551,7 @@ target_link_libraries(adore_lvprovider_node
                           libadore::sim 
                           libadore::apps 
                           libadore::params
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_crosstraffic_provider)
@@ -548,6 +564,7 @@ target_link_libraries(adore_crosstraffic_provider
                           libadore::sim 
                           libadore::apps 
                           libadore::params
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_checkpoint_controller_node)
@@ -563,6 +580,7 @@ target_link_libraries(adore_checkpoint_controller_node
                           libadore::apps 
                           libadore::params 
                           dlib::dlib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_mission_controller_node)
@@ -577,6 +595,7 @@ target_link_libraries(adore_mission_controller_node
                           libadore::sim 
                           libadore::apps 
                           libadore::params
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(test_control_dashboard src/test_control_dashboard.cpp)
@@ -617,6 +636,7 @@ target_link_libraries(plot_satimages_node
                           libadore::params 
                           libadore::fun 
                           plotlablib::plotlablib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(plot_ego_node)
@@ -629,6 +649,7 @@ target_link_libraries(plot_ego_node
                           libadore::params 
                           libadore::fun 
                           plotlablib::plotlablib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(plot_gaps_node)
@@ -641,6 +662,7 @@ target_link_libraries(plot_gaps_node
                           libadore::params 
                           libadore::env 
                           plotlablib::plotlablib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(plot_lanes_node)
@@ -653,6 +675,7 @@ target_link_libraries(plot_lanes_node
                           libadore::params  
                           libadore::fun 
                           plotlablib::plotlablib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(plot_scalar_node)
@@ -690,6 +713,7 @@ target_link_libraries(plot_traffic_node
                           libadore::fun 
                           plotlablib::plotlablib 
                           dlib::dlib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(plot_trafficlights_node)
@@ -702,6 +726,7 @@ target_link_libraries(plot_trafficlights_node
                           libadore::params 
                           libadore::fun 
                           plotlablib::plotlablib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(plot_predictions_node)
@@ -714,6 +739,7 @@ target_link_libraries(plot_predictions_node
                           libadore::params 
                           libadore::fun 
                           plotlablib::plotlablib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(plot_predictions_minimal_node)
@@ -726,6 +752,7 @@ target_link_libraries(plot_predictions_minimal_node
                           libadore::apps
                           libadore::params
                           libadore::fun
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(plot_conflicts_node)
@@ -738,6 +765,7 @@ target_link_libraries(plot_conflicts_node
                           libadore::params 
                           libadore::fun 
                           plotlablib::plotlablib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(plot_roadannotations_node)
@@ -750,6 +778,7 @@ target_link_libraries(plot_roadannotations_node
                           libadore::params 
                           plotlablib::plotlablib
                           dlib::dlib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 # target_compile_options(plot_roadannotations_node BEFORE PRIVATE -g1)
 
@@ -763,6 +792,7 @@ target_link_libraries(plot_plan_swath_node
                           libadore::params 
                           libadore::fun 
                           plotlablib::plotlablib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(plot_views_node)
@@ -775,6 +805,7 @@ target_link_libraries(plot_views_node
                           libadore::sim 
                           libadore::mad 
                           plotlablib::plotlablib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 
@@ -788,6 +819,7 @@ target_link_libraries(adore_pvprovider_node
                           libadore::sim 
                           libadore::apps 
                           libadore::params
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 
@@ -808,6 +840,7 @@ target_link_libraries(test_lc_trajectory_planner_node
                           libadore::params 
                           libadore::fun
                           plotlablib::plotlablib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 # target_include_directories(
@@ -850,6 +883,7 @@ target_link_libraries(adore_lfbehavior_node
                           libadore::env 
                           libadore::sim 
                           dlib::dlib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_trajectory_planner_lf_node src/adore_trajectory_planner_lf_node.cpp)
@@ -863,6 +897,7 @@ target_link_libraries(adore_trajectory_planner_lf_node
                           libadore::sim 
                           libadore::if_r2s 
                           dlib::dlib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_trajectory_planner_lm_node src/adore_trajectory_planner_lm_node.cpp)
@@ -882,6 +917,7 @@ target_link_libraries(adore_trajectory_planner_lm_node
                           libadore::env 
                           libadore::sim 
                           dlib::dlib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_trajectory_planner_lc_node src/adore_trajectory_planner_lc_node.cpp)
@@ -892,7 +928,8 @@ target_link_libraries(adore_trajectory_planner_lc_node
                           libadore::apps 
                           libadore::fun 
                           libadore::env 
-                          libadore::sim 
+                          libadore::sim
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_trajectory_planner_alc_node src/adore_trajectory_planner_alc_node.cpp)
@@ -905,6 +942,7 @@ target_link_libraries(adore_trajectory_planner_alc_node
                           libadore::env 
                           libadore::sim 
                           dlib::dlib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(adore_tactical_planner_node src/adore_tactical_planner_node.cpp)
@@ -917,6 +955,7 @@ target_link_libraries(adore_tactical_planner_node
                           libadore::sim 
                           plotlablib::plotlablib 
                           dlib::dlib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 # target_compile_options(adore_tactical_planner_node BEFORE PRIVATE -g1) 
 
@@ -928,6 +967,7 @@ target_link_libraries(area_of_effect_provider
                           libadore::apps 
                           libadore::env 
                           dlib::dlib
+                          adore_if_ros_scheduling::adore_if_ros_scheduling
 )
 
 add_executable(ego_transform_provider src/ego_transform_provider.cpp)
