@@ -9,3 +9,6 @@ catkin_workspace/
 *.sw*
 **lizard_report.xml**
 **.log
+**.vagrant
+**.catkin
+**.docker_image_cache**

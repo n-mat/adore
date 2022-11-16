@@ -1,4 +1,5 @@
 include make_gadgets/Makefile
+include make_gadgets/docker/Makefile
 include cppcheck_docker/Makefile.cppcheck_target
 include cpplint_docker/Makefile.cpplint_target
 include lizard_docker/Makefile.lizard_target
@@ -13,12 +14,12 @@ MAKEFLAGS += --no-print-directory
 .EXPORT_ALL_VARIABLES:
 DOCKER_BUILDKIT?=1
 DOCKER_CONFIG?=
-ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+ROOT_DIR:=$(shell dirname "$(realpath $(firstword $(MAKEFILE_LIST)))")
 PROJECT:=libadore
 
 
 #CMAKE_PREFIX_PATH?=$(shell realpath $$(find . -type d | grep "build/install" | grep -v "build/install/") | tr '\n' ';') 
-CMAKE_PREFIX_PATH?=$(shell realpath $$(find . -type d | grep "build" | grep -v "build/") | tr '\n' ';') 
+CMAKE_PREFIX_PATH?=$(shell realpath "$$(find . -type d | grep "build" | grep -v "build/")" | tr '\n' ';')
 
 LIBADORE_PROJECT="libadore"
 LIBADORE_VERSION="latest"
@@ -47,13 +48,14 @@ clean_libadore:
 	find . -name "**lizard_report.log" -exec rm -rf {} \;
 
 .PHONY: build 
-build:
-	rm -rf ${PROJECT}/build
+build: clean
+	rm -rf "${PROJECT}/build"
+	make build_external
 	#docker compose build libadore_build
 	docker buildx bake libadore_build
 	docker compose build libadore
 	docker compose build libadore_test
-	docker cp $$(docker create --rm $(shell echo ${TAG} | tr A-Z a-z)):/tmp/${PROJECT}/${PROJECT}/build ${ROOT_DIR}/${PROJECT}
+	docker cp $$(docker create --rm $(shell echo ${TAG} | tr A-Z a-z)):/tmp/${PROJECT}/${PROJECT}/build "${ROOT_DIR}/${PROJECT}"
 
 .PHONY: test 
 test:## run libadore unit tests
