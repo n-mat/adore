@@ -7,5 +7,6 @@ FROM alpine:3.14 AS libadore_package
 ARG PROJECT
 
 WORKDIR /tmp/${PROJECT}
+RUN true
 COPY --from=libadore_build /tmp/${PROJECT} /tmp/${PROJECT}
 

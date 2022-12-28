@@ -20,13 +20,14 @@
 #include <thread>
 #include <cstdlib>
 #include <adore_if_ros_scheduling/baseapp.h>
+#include <adore_if_ros/factorycollection.h>
 
 
 namespace adore
 {
   namespace if_ROS
   {  
-    class LocalizationModelNode : public adore_if_ros_scheduling::Baseapp
+    class LocalizationModelNode : public FactoryCollection, public adore_if_ros_scheduling::Baseapp
     {
       public:
       adore::apps::LocalizationModel* lm_;
@@ -35,6 +36,7 @@ namespace adore
       {
         Baseapp::init(argc, argv, rate, nodename);
         Baseapp::initSim();
+        FactoryCollection::init(getRosNodeHandle());
         lm_ = new adore::apps::LocalizationModel();
         // timer callbacks
         std::function<void()> callback(std::bind(&adore::apps::LocalizationModel::update,lm_));

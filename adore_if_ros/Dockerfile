@@ -3,7 +3,8 @@ ARG DEBUG
 
 
 FROM adore_if_ros_msg:latest AS adore_if_ros_msg
-FROM adore_if_ros_scheduling:initial_implementation AS adore_if_ros_scheduling
+FROM adore_if_ros_scheduling:latest AS adore_if_ros_scheduling
+FROM scheduler:latest AS scheduler
 FROM libadore:latest AS libadore
 
 FROM plotlablib:latest AS plotlablib
@@ -49,7 +50,7 @@ ARG LIB=adore_if_ros_scheduling
 COPY --from=adore_if_ros_scheduling /tmp/${LIB} /tmp/${LIB}
 COPY --from=adore_if_ros_scheduling /tmp/lib_adore_scheduling /tmp/lib_adore_scheduling
 COPY --from=adore_if_ros_scheduling /tmp/adore_if_ros_scheduling_msg /tmp/adore_if_ros_scheduling_msg
-#COPY --from=adore_if_ros_scheduling /tmp/adore_scheduling /tmp/adore_scheduling
+COPY --from=scheduler /tmp/scheduler /tmp/scheduler
 SHELL ["/bin/bash", "-c"]
 WORKDIR /tmp/${LIB}/${LIB}/build
 RUN source /opt/ros/noetic/setup.bash && \
@@ -58,6 +59,9 @@ WORKDIR /tmp/adore_if_ros_scheduling_msg/adore_if_ros_scheduling_msg/build
 RUN source /opt/ros/noetic/setup.bash && \
     cmake --install . --prefix ${INSTALL_PREFIX}
 WORKDIR /tmp/lib_adore_scheduling/lib_adore_scheduling/build
+RUN source /opt/ros/noetic/setup.bash && \
+    cmake --install . --prefix ${INSTALL_PREFIX}
+WORKDIR /tmp/scheduler/scheduler/build
 RUN source /opt/ros/noetic/setup.bash && \
     cmake --install . --prefix ${INSTALL_PREFIX}
 

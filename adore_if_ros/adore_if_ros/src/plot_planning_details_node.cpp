@@ -17,12 +17,14 @@
 #include <adore/apps/plot_planning_details.h>
 #include <adore_if_ros_scheduling/baseapp.h>
 #include <ros/ros.h>
+#include <adore_if_ros/factorycollection.h>
+
 
 namespace adore
 {
     namespace if_ROS
     {
-        class PlotPlanningDetailsNode : public adore_if_ros_scheduling::Baseapp
+        class PlotPlanningDetailsNode : public FactoryCollection, public adore_if_ros_scheduling::Baseapp
         {
           public:
             PlotPlanningDetailsNode()
@@ -37,6 +39,7 @@ namespace adore
             {
                 Baseapp::init(argc, argv, rate, nodename);
                 Baseapp::initSim();
+                FactoryCollection::init(getRosNodeHandle());
                 pdp_ = new adore::apps::PlanningDetailsPlotter();
                 // timer callbacks
                 std::function<void()> run_fcn(std::bind(&adore::apps::PlanningDetailsPlotter::run, pdp_));
