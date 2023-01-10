@@ -93,3 +93,12 @@
 	path = libadore/lizard_docker
 	url = git@github.com:DLR-TS/lizard_docker.git
 	branch = master
+[submodule "adore_if_ros/adore_scheduling"]
+	path = adore_if_ros/adore_scheduling
+	url = git@github.com:n-mat/adore_if_ros_scheduling_pro.git
+[submodule "adore_scheduling"]
+	path = adore_scheduling
+	url = git@github.com:n-mat/adore_if_ros_scheduling_pro.git
+[submodule "extended_sumo_if_ros"]
+	path = extended_sumo_if_ros
+	url = git@github.com:dlr-ts/extended_sumo_if_ros.git
