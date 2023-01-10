@@ -6,6 +6,8 @@ function echoerr { echo "$@" >&2; exit 1;}
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )" 
 
 ADORE_SOURCE_DIRECTORY=$(realpath "${DIR}/..")
+ADORE_ML_SOURCE_DIRECTORY=$(realpath "${DIR}/../adore_ml")
+ADORE_SCHEDULING_SOURCE_DIRECTORY=$(realpath "${DIR}/../adore_scheduling")
 
 if ! [ -x "$(command -v catkin)" ]; then
     echoerr "ERROR: catkin not installed."
@@ -21,15 +23,15 @@ if [[ ! -d "${CATKIN_WORKSPACE_DIRECTORY}" ]]; then
     mkdir -p "${CATKIN_WORKSPACE_DIRECTORY}"/install/{lib/python3/dist-packages,share,include}
 	
     cd $CATKIN_WORKSPACE_DIRECTORY
-    for file in $ADORE_SOURCE_DIRECTORY/*; do 
-    	if [ -d "$file" ]; then
+    for file in {$ADORE_SOURCE_DIRECTORY,$ADORE_ML_SOURCE_DIRECTORY,$ADORE_SCHEDULING_SOURCE_DIRECTORY}/*; do 
+		if [ -d "$file" ]; then
 	    	#echo "processing: $file"
 	    	#short="${${file:0:-1}##*/}"    #extract dir name without path and trailing /
 	    	short="${file##*/}"    #extract dir name without path 
 	    	#echo "subfolder: $short"
 	    	#echo "processing: $file/$short"
 		if [[ ! "$file" =~ ${CATKIN_WORKSPACE_DIRECTORY} ]]; then 
-		    	if [ -d "$file/$short" ]; then  #if directory contains subdirectory of same name
+		    if [ -d "$file/$short" ]; then  #if directory contains subdirectory of same name
 			    if [ -f "$file/$short/package.xml" ]; then #if subdirectory contanis a package.xml
 			    	    #then create link to subdirectory in src
 				    ln -s "$file/$short" "src/"  

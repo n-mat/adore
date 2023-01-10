@@ -41,7 +41,7 @@ all: \
      docker_storage_inventory_prebuild \
      start_apt_cacher_ng \
      build_adore_if_ros_msg\
-     build_adore_if_ros_scheduling\
+     build_adore_scheduling\
      build_adore_v2x_sim \
      build_adore_if_v2x \
      build_sumo_if_ros \
@@ -73,7 +73,7 @@ clean: delete_all_none_tags
 	cd libadore && make clean
 	cd adore_if_ros && make clean
 	cd adore_if_v2x && make clean
-	cd adore_if_ros/adore_if_ros_scheduling && make clean
+	cd adore_scheduling && make clean
 
 .PHONY: start_apt_cacher_ng 
 start_apt_cacher_ng: ## Start apt cacher ng service
@@ -132,9 +132,9 @@ build_sumo_if_ros: ## Build sumo_if_ros
 	cd sumo_if_ros && \
     make
     
-.PHONY: build_adore_if_ros_scheduling 
-build_adore_if_ros_scheduling: ## Build adore_if_ros_scheduling
-	cd adore_if_ros/adore_if_ros_scheduling && \
+.PHONY: build_adore_scheduling 
+build_adore_scheduling: ## Build adore_scheduling
+	cd adore_scheduling && \
     make
 
 .PHONY: test 
