@@ -110,7 +110,7 @@ build_adore_if_ros_msg:
 .PHONY: build_plotlabserver 
 build_plotlabserver: ## Build plotlabserver
 	cd plotlabserver && \
-    make build_fast
+    make build
 
 .PHONY: build_adore_if_v2x 
 build_adore_if_v2x: ## Build adore_if_v2x
@@ -218,7 +218,7 @@ build_adore-cli_fast: # build adore-cli if it does not already exist in the dock
     make build_adore-cli 
 
 .PHONY: build_adore-cli
-build_adore-cli: start_apt_cacher_ng build_catkin_base build_plotlabserver ## Builds the ADORe CLI docker context/image
+build_adore-cli: start_apt_cacher_ng build_catkin_base #build_plotlabserver ## Builds the ADORe CLI docker context/image
 	docker compose build adore-cli \
                          --build-arg UID=${UID} \
                          --build-arg GID=${GID} \

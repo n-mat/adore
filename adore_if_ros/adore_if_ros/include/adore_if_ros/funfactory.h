@@ -230,12 +230,20 @@ namespace adore
                                       adore_if_ros_msg::PlanningResult,
                                       PlanningResultConverter>(n_, "FUN/PlanningSelect", 10 );
                 }
+                
                 ///reads PlanningResult as general information about decision making and planning performance
                 virtual adore::mad::AFeed<adore::fun::PlanningResult>* getPlanningResultFeed() override
                 {
                     return new Feed<adore::fun::PlanningResult,
                                       adore_if_ros_msg::PlanningResultConstPtr,
                                       PlanningResultConverter>(n_, "FUN/PlanningResult", 100);
+                }
+                ///reads selected PlanningResult as general information about decision making and planning performance
+                virtual adore::mad::AFeed<adore::fun::PlanningResult>* getPlanningSelectFeed() override
+                {
+                    return new Feed<adore::fun::PlanningResult,
+                                      adore_if_ros_msg::PlanningResultConstPtr,
+                                      PlanningResultConverter>(n_, "FUN/PlanningSelect", 100);
                 }    
                 virtual adore::mad::AWriter<adore::fun::PlanningRequest>* getPlanningRequestWriter() override
                 {

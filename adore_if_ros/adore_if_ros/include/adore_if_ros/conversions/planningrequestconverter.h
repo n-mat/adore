@@ -10,6 +10,7 @@
  *
  * Contributors: 
  *   Daniel Heß - initial API and implementation
+ *   Matthias Nichting - added v_ref_percentage_of_v_max, allow_for_cooperation
  ********************************************************************************/
 
 #pragma once
@@ -36,6 +37,8 @@ namespace adore
                 msg.t_planning_end = data.t_planning_end;
                 msg.t_emergency_start = data.t_emergency_start;
                 msg.initial_state = spr_converter_(&data.initial_state);
+                msg.v_ref_percentage_of_v_max = data.v_ref_percentage_of_v_max;
+                msg.allow_for_cooperation = data.allow_for_cooperation;
                 return msg;
             }
             /**
@@ -49,6 +52,8 @@ namespace adore
                 data.t_planning_end = msg.t_planning_end;
                 data.t_emergency_start = msg.t_emergency_start;
                 spr_converter_(&msg.initial_state,&data.initial_state);               
+                data.v_ref_percentage_of_v_max = msg.v_ref_percentage_of_v_max;
+                data.allow_for_cooperation = msg.allow_for_cooperation;
             }
         };
     }

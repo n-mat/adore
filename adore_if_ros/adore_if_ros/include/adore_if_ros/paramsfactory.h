@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (C) 2017-2020 German Aerospace Center (DLR). 
+ * Copyright (C) 2017-2023 German Aerospace Center (DLR). 
  * Eclipse ADORe, Automated Driving Open Research https://eclipse.org/adore
  *
  * This program and the accompanying materials are made available under the 
@@ -10,6 +10,7 @@
  *
  * Contributors: 
  *   Jan Lauermann - initial API and implementation
+ *   Matthias Nichting - added communication
  ********************************************************************************/
 
 #pragma once
@@ -37,6 +38,7 @@
 #include <adore_if_ros/params_factory/p_prediction.h>
 #include <adore_if_ros/params_factory/p_odometrymodel.h>
 #include <adore_if_ros/params_factory/p_localizationmodel.h>
+#include <adore_if_ros/params_factory/p_communication.h>
 
 namespace adore
 {
@@ -139,6 +141,10 @@ namespace adore
         virtual adore::params::APLocalizationModel* getLocalizationModel()const override
         {
           return new adore::if_ROS::params::PLocalizationModel(n_,prefix_);
+        }
+        virtual adore::params::APCommunication* getCommunication()const override
+        {
+          return new adore::if_ROS::params::PCommunication(n_,prefix_);
         }
     };
   }

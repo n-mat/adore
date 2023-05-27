@@ -235,7 +235,7 @@ namespace adore
             planning_result.status_string = "lc not required for navigation";
             // todo: investigate cost calculation as it seems implausible return;
         }
-
+      std::cout << "line 238"<<std::endl;
 
         prediction_.update();
 
@@ -264,6 +264,7 @@ namespace adore
         double tmp;
         target->toRelativeCoordinates(gapX_,gapY_,gaps_,tmp);
 
+      std::cout << "line 266"<<std::endl;
         nominal_planner_->compute(planning_request.initial_state.toMotionState());
         if(!nominal_planner_->hasValidPlan())
         {
@@ -281,6 +282,7 @@ namespace adore
         }
 
 
+      std::cout << "line 284"<<std::endl;
         planning_result.nominal_maneuver_valid = true;
         auto x0em = nominal_planner_->getSetPointRequest()->interpolateSetPoint(planning_request.t_emergency_start,pvehicle_);
         bool valid_em_found = false;
@@ -310,6 +312,7 @@ namespace adore
           }
         }
 
+      std::cout << "valid em "<< (valid_em_found?"yes":"no")<<std::endl;
         if(em_cancel_active_)
         {
           if(!valid_em_found)
@@ -337,6 +340,7 @@ namespace adore
           }
         }
         
+      std::cout << "line 343"<<std::endl;
         if(!valid_em_found)
         {
           planning_result.status_string += "emergency maneuver planning failed";
@@ -354,6 +358,7 @@ namespace adore
         spr_swath.setLatError(pTacticalPlanner_->getCollisionDetectionLateralError());
         spr_swath.append_cylinder_swath_linear(planning_result.combined_maneuver,planning_result.combined_maneuver_swath);
         spr_swath.append_cylinder_swath_linear(planning_result.nominal_maneuver,planning_result.nominal_maneuver_swath);
+      std::cout << "line 361"<<std::endl;
 
         planning_result.combined_maneuver.cropAfterFirstStop(pTacticalPlanner_->getTerminateAfterFirstStopThresholdSpeed());
         if(planning_result.combined_maneuver.setPoints.size()==0)
@@ -361,6 +366,7 @@ namespace adore
           planning_result.status_string = "stopping";
           return;
         }
+      std::cout << "line 369"<<std::endl;
         
         planning_result.combined_maneuver_valid = true;
         int laneid = directionLeft_?1:-1;
@@ -417,6 +423,7 @@ namespace adore
             break;
         }
 
+      std::cout << "line 426"<<std::endl;
 
         int number_of_time_steps = nominal_planner_->getProgressSolver().lbx().nc();
         auto time_steps = adore::mad::linspace(nominal_planner_->getPlanningHorizon()/number_of_time_steps,nominal_planner_->getPlanningHorizon(),number_of_time_steps);
@@ -426,6 +433,7 @@ namespace adore
         planning_result.nominal_maneuver_lateral_plan = nominal_planner_->getOffsetSolver().result_fun();
         planning_result.nominal_maneuver_lateral_lbx.getData() = dlib::join_cols(time_steps,nominal_planner_->getOffsetSolver().lbx());
         planning_result.nominal_maneuver_lateral_ubx.getData() = dlib::join_cols(time_steps,nominal_planner_->getOffsetSolver().ubx());
+        std::cout << "planning successful"<<std::endl;
       }
     };
   }

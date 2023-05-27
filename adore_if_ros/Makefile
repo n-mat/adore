@@ -37,6 +37,8 @@ build: set_mode ## Build adore_if_ros
 	rm -rf "${PROJECT}/build"
 	cd adore_if_ros_msg && \
 	make
+	cd adore_scheduling && \
+	make build
 	cd plotlablib && \
 	make
 	docker build --tag $(shell echo ${TAG} | tr A-Z a-z) \

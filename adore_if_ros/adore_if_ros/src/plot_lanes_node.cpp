@@ -51,8 +51,8 @@ namespace adore
         laneplot_config.lane_fill_default_plotoptions = "FillColor=0.7,0.7,0.7;LineColor=0.6,0.6,0.6;LineWidth=1.8";
         laneplot_config.setpoint_plotoptions = "LineWidth=3;LineColor=0.9,0.1,0.1";
         laneplot_config.plot_traffic_lights = false;
-        laneplot_config.plot_emergency_lane = false;
-        laneplot_config.plot_other_lane = false;
+        laneplot_config.plot_emergency_lane = true;
+        laneplot_config.plot_other_lane = true;
         laneplot_config.plot_drive_lane = true;
         // TODO the following seems to be missing: laneplot_config.left_border
         std::string left_border = "FillColor=0.7,0.7,0.7;LineColor=0.6,0.6,0.6;LineWidth=1.8";

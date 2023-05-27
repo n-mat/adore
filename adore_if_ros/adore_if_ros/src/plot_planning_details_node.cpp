@@ -26,7 +26,7 @@ namespace adore
     {
         class PlotPlanningDetailsNode : public FactoryCollection, public adore_if_ros_scheduling::Baseapp
         {
-          public:
+        public:
             PlotPlanningDetailsNode()
             {
             }
@@ -34,26 +34,35 @@ namespace adore
             {
                 delete pdp_;
             }
-            adore::apps::PlanningDetailsPlotter* pdp_;
-            void init(int argc, char** argv, double rate, std::string nodename)
+            adore::apps::PlanningDetailsPlotter *pdp_;
+            void init(int argc, char **argv, double rate, std::string nodename)
             {
                 Baseapp::init(argc, argv, rate, nodename);
                 Baseapp::initSim();
                 FactoryCollection::init(getRosNodeHandle());
-                pdp_ = new adore::apps::PlanningDetailsPlotter();
+
+                std::string filter = ""; // plot only plans with names that are substrings of filter. No filtering if filter is an empty string
+                for (int i = 0; i < argc; i++)
+                {
+                    if (strcmp(argv[i], "filter") == 0)
+                    {
+                        filter = argv[i + 1];
+                    }
+                }
+
+                pdp_ = new adore::apps::PlanningDetailsPlotter(filter);
                 // timer callbacks
                 std::function<void()> run_fcn(std::bind(&adore::apps::PlanningDetailsPlotter::run, pdp_));
                 Baseapp::addTimerCallback(run_fcn);
             }
         };
-    }  // namespace if_ROS
-}  // namespace adore
+    } // namespace if_ROS
+} // namespace adore
 
 adore::if_ROS::PlotPlanningDetailsNode ppdn;
 bool terminated;
 
-
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     terminated = false;
     ppdn.init(argc, argv, 10.0, "adore_plot_planning_details_node");

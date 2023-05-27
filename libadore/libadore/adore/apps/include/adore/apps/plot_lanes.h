@@ -58,10 +58,10 @@ namespace adore
       adore::env::BorderBased::BorderSet borderSet_;
       adore::env::VehicleMotionState9d position_;
       std::string prefix_;
-
+      
       double fov_width_;
       double fov_height_;
-
+      long long int counter_;
       adore::PLOT::LanePlotConfig config_;
 
       struct info
@@ -92,7 +92,6 @@ namespace adore
       }
       void setVisible(adore::env::BorderBased::BorderID id,bool visible)
       {
-        static long long counter = 0;
         auto result = plotMap_.find(id);
         if(result!=plotMap_.end())
         {
@@ -100,11 +99,29 @@ namespace adore
         }
         else
         {
-          counter ++;
-          std::stringstream ss;
-          ss<<prefix_<<"/localmap/border"<<counter;
-          plotMap_.emplace(std::make_pair(id,info(visible,ss.str())));
+          plotMap_.emplace(std::make_pair(id,info(visible,getNewName())));
         }
+      }
+      
+      void setVisible_getName(adore::env::BorderBased::BorderID id,bool visible, std::string &name)
+      {
+        auto result = plotMap_.find(id);
+        if(result!=plotMap_.end())
+        {
+          result->second.visible_ = visible;
+          name = result->second.name_;
+        }
+        else
+        {
+          name = getNewName();
+          plotMap_.emplace(std::make_pair(id,info(visible,name)));
+        }
+      }
+      
+      std::string getNewName()
+      {
+        ++counter_;
+        return prefix_ + std::to_string(counter_);
       }
       std::string getName(adore::env::BorderBased::BorderID id)
       {
@@ -120,10 +137,12 @@ namespace adore
         pvehicle_= adore::params::ParamsFactoryInstance::get()->getVehicle();
         pmap_ = adore::params::ParamsFactoryInstance::get()->getMapProvider();
         figure_ = figure;      
-        prefix_ = prefix;
+        prefix_ = prefix + "border/";
         fov_width_ = 640.0;
         fov_height_ = 480.0;
         config_ = config;
+        counter_ = 0;
+        figure_->erase_similar(prefix_);
       }
 
       ~PlotLanes()
@@ -133,14 +152,8 @@ namespace adore
       void run()
       {
 
-        plot_tags_old_.insert(plot_tags_current_.begin(),plot_tags_current_.end());
-        plot_tags_current_.clear();
-
-        // adore::env::BorderBased::BorderSet newBorderSet_;
         while(borderfeed_->hasNext())
         {
-          
-          bool to_be_plotted = false;
           auto border = new adore::env::BorderBased::Border();
           borderfeed_->getNext(*border);
           borderSet_.insert_border(border,true);
@@ -171,11 +184,8 @@ namespace adore
                 leftNeighbor = borderSet_.getBorder(*(border->m_left));
                 if (leftNeighbor != 0 && (!isVisible(border->m_id) || !isVisible(leftNeighbor->m_id)) )
                 {
-                  setVisible(border->m_id,true);
-                  std::stringstream ss;
-                  ss<<"border/"<<std::hex<<border;
-                  // auto name = getName(border->m_id);
-                  auto name = ss.str();
+                  std::string name;
+                  setVisible_getName(border->m_id,true,name);
                   if (border->m_type == adore::env::BorderBased::BorderType::DRIVING)
                   {
                     auto highlightRightBorder = (!borderSet_.hasRightNeighbor(border)) || (borderSet_.getRightNeighbor(border)->m_type != adore::env::BorderBased::BorderType::DRIVING);
@@ -196,14 +206,6 @@ namespace adore
         if(positionReader_->hasUpdate())
         {
           positionReader_->getData(position_);
-        }
-
-        for(auto s:plot_tags_old_)
-        {
-          if(plot_tags_current_.find(s)==plot_tags_current_.end())
-          {
-            figure_->erase(s);
-          }
         }
       }   
     };

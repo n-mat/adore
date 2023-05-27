@@ -35,6 +35,7 @@
 #include <adore/params/ap_prediction.h>
 #include <adore/params/ap_odometrymodel.h>
 #include <adore/params/ap_localizationmodel.h>
+#include <adore/params/ap_communication.h>
 #include <iostream>
 
 namespace adore
@@ -75,6 +76,7 @@ namespace adore
       virtual APPrediction* getPrediction() const=0;
       virtual APOdometryModel* getOdometryModel() const=0;
       virtual APLocalizationModel* getLocalizationModel() const=0;
+      virtual APCommunication* getCommunication() const=0;
 
 		};
 

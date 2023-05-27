@@ -120,6 +120,8 @@ namespace adore
 			virtual TPlanningResultFeed* getPlanningResultFeed()=0;
 			///writes PlanningResult for maneuver selected for execution
 			virtual TPlanningResultWriter* getPlanningSelectWriter()=0;
+      ///reads selected PlanningResult as general information about decision making and planning performance
+			virtual TPlanningResultFeed* getPlanningSelectFeed()=0;
 			///writes PlanningRequest to orchestrate multiple trajectory planners
 			virtual TPlanningRequestWriter* getPlanningRequestWriter()=0;
       ///allows to trigger planning, when planning request is received

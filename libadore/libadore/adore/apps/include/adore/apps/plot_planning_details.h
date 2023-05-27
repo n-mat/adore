@@ -41,15 +41,17 @@ namespace adore
             DLR_TS::PlotLab::AFigureStub* figure_lat1_;
             DLR_TS::PlotLab::AFigureStub* figure_lat2_;
             adore::mad::AFeed<adore::fun::PlanningResult>* planning_result_feed_;
+            std::string filter_;
 
           public:
-            PlanningDetailsPlotter()
+            PlanningDetailsPlotter(std::string filter = "")
               : plot_longitudinal_(true)
               , plot_lateral_(true)
               , s_upper_bound_clipped_(200)
               , s_lower_bound_clipped_(-10)
               , n_upper_bound_clipped_(5)
               , n_lower_bound_clipped_(-5)
+              , filter_(filter)
             {
                 planning_result_feed_ = adore::fun::FunFactoryInstance::get()->getPlanningResultFeed();
                 initialize_plot();
@@ -196,9 +198,14 @@ namespace adore
             void run()
             {
                 fun::PlanningResult latest_planning_result;
-                if (planning_result_feed_->hasNext())
-                {
-                    planning_result_feed_->getLatest(latest_planning_result);
+                while (planning_result_feed_->hasNext())
+                {   
+                    fun::PlanningResult latest_planning_result;
+                    planning_result_feed_->getNext(latest_planning_result);
+                    if(!filter_.empty() && filter_.find(latest_planning_result.name) == std::string::npos)
+                    {
+                        continue;
+                    }
                     if (latest_planning_result.nominal_maneuver_valid && plot_longitudinal_)
                     {
                         plot_longitudinal_planning_information(latest_planning_result);
