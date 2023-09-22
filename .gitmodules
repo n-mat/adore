@@ -1,9 +1,6 @@
 [submodule "adore_if_carla"]
 	path = adore_if_carla
 	url = git@github.com:dlr-ts/adore_if_carla
-[submodule "adore_if_ros_msg"]
-	path = adore_if_ros_msg
-	url = git@github.com:dlr-ts/adore_if_ros_msg
 [submodule "adore_if_v2x"]
 	path = adore_if_v2x
 	url = git@github.com:dlr-ts/adore_if_v2x
@@ -18,15 +15,6 @@
 [submodule "plotlabserver"]
 	path = plotlabserver
 	url = git@github.com:dlr-ts/plotlabserver
-[submodule "sumo_if_ros"]
-	path = sumo_if_ros
-	url = git@github.com:dlr-ts/sumo_if_ros
-[submodule "v2x_if_ros_msg"]
-	path = v2x_if_ros_msg
-	url = git@github.com:dlr-ts/v2x_if_ros_msg
-[submodule "catkin_docker"]
-	path = catkin_docker
-	url = git@github.com:DLR-TS/catkin_docker.git
 [submodule "cpplint_docker"]
 	path = cpplint_docker
 	url = git@github.com:DLR-TS/cpplint_docker.git
@@ -45,12 +33,6 @@
 [submodule "adore_cli"]
 	path = adore_cli
 	url = git@github.com:DLR-TS/adore_cli.git
-[submodule "adore_if_ros"]
-	path = adore_if_ros
-	url = git@github.com:DLR-TS/adore_if_ros.git
-[submodule "libadore"]
-	path = libadore
-	url = git@github.com:DLR-TS/libadore.git
 [submodule "adore_scheduling"]
 	path = adore_scheduling
 	url = git@github.com:DLR-TS/adore_scheduling.git
@@ -60,12 +42,36 @@
 [submodule "adore_if_ros_scheduling"]
 	path = adore_if_ros_scheduling
 	url = git@github.com:DLR-TS/adore_if_ros_scheduling.git
-[submodule "adore_tools"]
-	path = adore_tools
-	url = git@github.com:DLR-TS/adore_tools.git
 [submodule "ci_teststand"]
 	path = ci_teststand
 	url = git@github.com:DLR-TS/ci_teststand.git
 [submodule "adore_scenarios"]
 	path = adore_scenarios
 	url = git@github.com:DLR-TS/adore_scenarios.git
+[submodule "adore_if_ros"]
+	path = adore_if_ros
+	url = git@github.com:n-mat/adore_if_ros.git
+[submodule "adore_if_ros_msg"]
+	path = adore_if_ros_msg
+	url = git@github.com:n-mat/adore_if_ros_msg.git
+[submodule "adore_tools"]
+	path = adore_tools
+	url = git@github.com:n-mat/adore_tools.git
+[submodule "catkin_docker"]
+	path = catkin_docker
+	url = git@github.com:n-mat/catkin_docker.git
+[submodule "extended_sumo_if_ros"]
+	path = extended_sumo_if_ros
+	url = git@github.com:dlr-ts/extended_sumo_if_ros.git
+[submodule "libadore"]
+	path = libadore
+	url = git@github.com:n-mat/libadore.git
+[submodule "sumo_if_ros"]
+	path = sumo_if_ros
+	url = git@github.com:n-mat/sumo_if_ros.git
+[submodule "v2x_if_ros_msg"]
+	path = v2x_if_ros_msg
+	url = git@github.com:n-mat/v2x_if_ros_msg.git
+[submodule "adore_ml"]
+	path = adore_ml
+	url = git@github.com:n-mat/adore_ml_pro.git
